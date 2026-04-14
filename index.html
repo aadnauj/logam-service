@@ -8,45 +8,44 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-<link rel="stylesheet" href="style.css">
-  <style>
-   
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<!-- LOADER -->
 <div id="loader">
   <div class="loader-logo">LOGAM<span>&nbsp;SERVICE</span></div>
   <div class="loader-bar"><div class="loader-fill"></div></div>
 </div>
 
-<!-- FLOATING WA -->
 <a href="https://wa.me/6285270473551" class="float-wa" target="_blank" rel="noopener" aria-label="Chat WhatsApp">
   <i class="fab fa-whatsapp"></i>
 </a>
 
-<!-- NAVBAR -->
-<nav id="navbar">
-  <a href="#" class="nav-brand">LOGAM<span>&nbsp;SERVICE</span></a>
+<nav>
+  <a href="#" class="nav-brand">
+    <div class="nav-brand-icon"><i class="fas fa-tools"></i></div>
+    LOGAM<span>&nbsp;SERVICE</span>
+  </a>
   <ul class="nav-links">
     <li><a href="#tentang">Tentang</a></li>
     <li><a href="#layanan">Layanan</a></li>
+    <li><a href="#ulasan">Ulasan</a></li>
     <li><a href="#lokasi">Lokasi</a></li>
     <li><a href="https://wa.me/6285270473551" class="nav-cta" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+  <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="#tentang"  onclick="closeMobile()">Tentang Kami</a>
   <a href="#layanan"  onclick="closeMobile()">Layanan</a>
+  <a href="#ulasan"   onclick="closeMobile()">Ulasan</a>
   <a href="#lokasi"   onclick="closeMobile()">Lokasi</a>
   <a href="#kontak"   onclick="closeMobile()">Kontak</a>
   <a href="https://wa.me/6285270473551" target="_blank">WhatsApp</a>
 </div>
 
-<!-- HERO -->
+<!-- ═══ HERO ═══ -->
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
@@ -60,19 +59,24 @@
       <a href="#layanan" class="btn-outline"><i class="fas fa-tools"></i> Lihat Layanan</a>
     </div>
   </div>
-  <div class="brand-strip">
-    <span class="brand-label">Melayani:</span>
-    <div class="brand-logos">
-      <span class="brand-tag">Honda</span>
-      <span class="brand-tag">Yamaha</span>
-      <span class="brand-tag">Suzuki</span>
-      <span class="brand-tag">Kawasaki</span>
-      <span class="brand-tag">TVS</span>
+
+  <!-- BRAND LOGO SPACE -->
+  <div class="hero-brand-section">
+    <div class="hero-brand-inner">
+      <span class="hero-brand-label">Kami Melayani</span>
+      <div class="hero-brand-divider"></div>
+      <div class="brand-logos-row">
+        <div class="brand-logo-pill"><span class="bdot bdot-red"></span><span class="bname">HONDA</span></div>
+        <div class="brand-logo-pill"><span class="bdot bdot-blue"></span><span class="bname">YAMAHA</span></div>
+        <div class="brand-logo-pill"><span class="bdot bdot-navy"></span><span class="bname">SUZUKI</span></div>
+        <div class="brand-logo-pill"><span class="bdot bdot-green"></span><span class="bname">KAWASAKI</span></div>
+        <div class="brand-logo-pill"><span class="bdot bdot-orange"></span><span class="bname">TVS</span></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- TENTANG KAMI -->
+<!-- ═══ TENTANG ═══ -->
 <section id="tentang">
   <div class="tentang-inner">
     <div class="tentang-visual reveal">
@@ -92,68 +96,246 @@
       <div class="section-label">Tentang Kami</div>
       <h2 class="section-title">Bengkel Motor <span>Kepercayaan</span> Anda</h2>
       <p class="section-desc">Logam Service adalah bengkel sepeda motor yang menyediakan berbagai layanan perawatan dan perbaikan motor dengan kualitas terbaik. Mengutamakan kepuasan pelanggan, kecepatan pengerjaan, dan hasil yang maksimal.</p>
-      <p class="section-desc">Didukung oleh teknisi berpengalaman dan peralatan diagnostik terkini, kami siap menangani segala jenis kerusakan dan perawatan kendaraan bermotor Anda.</p>
+      <p class="section-desc" style="margin-top:12px">Didukung oleh teknisi berpengalaman dan peralatan diagnostik terkini, kami siap menangani segala jenis kerusakan dan perawatan kendaraan bermotor Anda.</p>
       <div class="stat-row">
-        <div class="stat-box">
-          <div class="stat-num">500+</div>
-          <div class="stat-lbl">Motor Ditangani</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num">5+</div>
-          <div class="stat-lbl">Tahun Pengalaman</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num">100%</div>
-          <div class="stat-lbl">Kepuasan Pelanggan</div>
-        </div>
+        <div class="stat-box"><div class="stat-num">500+</div><div class="stat-lbl">Motor Ditangani</div></div>
+        <div class="stat-box"><div class="stat-num">5+</div><div class="stat-lbl">Tahun Pengalaman</div></div>
+        <div class="stat-box"><div class="stat-num">100%</div><div class="stat-lbl">Kepuasan Pelanggan</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- LAYANAN -->
+<!-- ═══ LAYANAN ═══ -->
 <section id="layanan">
   <div class="layanan-header reveal">
     <div class="section-label">Apa yang Kami Lakukan</div>
     <h2 class="section-title">Layanan <span>Unggulan</span> Kami</h2>
-    <p class="section-desc">Kami menyediakan berbagai layanan perawatan dan perbaikan motor lengkap dengan teknisi profesional.</p>
+    <p class="section-desc">Kami menyediakan berbagai layanan perawatan dan perbaikan motor dengan teknisi profesional dan peralatan terkini.</p>
   </div>
-  <div class="layanan-grid">
-    <div class="service-card reveal">
-      <div class="service-icon"><i class="fas fa-boxes"></i></div>
-      <h3 class="service-title">Sparepart</h3>
-      <p class="service-desc">Suku cadang original dan berkualitas tersedia lengkap untuk berbagai merk dan tipe sepeda motor.</p>
+
+  <div class="service-list">
+
+    <div class="svc-card reveal">
+      <div class="svc-content">
+        <div class="svc-number">01</div>
+        <div class="svc-icon-row">
+          <div class="svc-icon"><i class="fas fa-boxes"></i></div>
+          <h3 class="svc-title">Sparepart</h3>
+        </div>
+        <p class="svc-desc">Tersedia suku cadang original dan aftermarket berkualitas untuk semua merk motor populer. Mulai dari filter, busi, kampas rem, rantai, hingga komponen mesin — semuanya tersedia dengan harga kompetitif dan terjamin kualitasnya.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Filter Udara</span><span class="svc-tag">Busi</span><span class="svc-tag">Kampas Rem</span><span class="svc-tag">Rantai</span><span class="svc-tag">Komponen Mesin</span>
+        </div>
+      </div>
+      <div class="svc-image">
+        <img src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=700&auto=format&fit=crop" alt="Sparepart Motor" loading="lazy" />
+        <div class="svc-image-overlay"></div>
+        <span class="svc-image-badge"><i class="fas fa-check-circle"></i> Original Parts</span>
+      </div>
     </div>
-    <div class="service-card reveal">
-      <div class="service-icon"><i class="fas fa-shopping-bag"></i></div>
-      <h3 class="service-title">Accessories</h3>
-      <p class="service-desc">Pilihan aksesori motor lengkap untuk mempercantik dan meningkatkan performa kendaraan Anda.</p>
+
+    <div class="svc-card reverse reveal">
+      <div class="svc-content">
+        <div class="svc-number">02</div>
+        <div class="svc-icon-row">
+          <div class="svc-icon"><i class="fas fa-shopping-bag"></i></div>
+          <h3 class="svc-title">Accessories</h3>
+        </div>
+        <p class="svc-desc">Lengkapi dan percantik motor Anda dengan pilihan aksesori terlengkap. Dari lampu LED, spion, cover jok, hingga aksesori pelindung — kami memiliki koleksi yang sesuai untuk berbagai selera dan anggaran.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Lampu LED</span><span class="svc-tag">Spion</span><span class="svc-tag">Cover Jok</span><span class="svc-tag">Pelindung Body</span>
+        </div>
+      </div>
+      <div class="svc-image">
+        <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=700&auto=format&fit=crop" alt="Accessories Motor" loading="lazy" />
+        <div class="svc-image-overlay"></div>
+        <span class="svc-image-badge"><i class="fas fa-star"></i> Pilihan Terlengkap</span>
+      </div>
     </div>
-    <div class="service-card reveal">
-      <div class="service-icon"><i class="fas fa-microchip"></i></div>
-      <h3 class="service-title">Diagnosa Injeksi</h3>
-      <p class="service-desc">Pemeriksaan sistem injeksi menggunakan alat diagnostik modern untuk mendeteksi kerusakan secara akurat.</p>
+
+    <div class="svc-card reveal">
+      <div class="svc-content">
+        <div class="svc-number">03</div>
+        <div class="svc-icon-row">
+          <div class="svc-icon"><i class="fas fa-microchip"></i></div>
+          <h3 class="svc-title">Diagnosa Injeksi</h3>
+        </div>
+        <p class="svc-desc">Menggunakan alat scan diagnostik terkini untuk membaca kode error pada sistem injeksi motor secara akurat. Teknisi kami terlatih menangani berbagai sistem EFI dari semua merk, memastikan performa mesin kembali optimal.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Scan ECU</span><span class="svc-tag">Reset Error Code</span><span class="svc-tag">Tuning Injeksi</span><span class="svc-tag">Semua Merk</span>
+        </div>
+      </div>
+      <div class="svc-image">
+        <img src="https://images.unsplash.com/photo-1636761559007-09b5aab36fe0?w=700&auto=format&fit=crop" alt="Diagnosa Injeksi" loading="lazy" />
+        <div class="svc-image-overlay"></div>
+        <span class="svc-image-badge"><i class="fas fa-microchip"></i> Alat Modern</span>
+      </div>
     </div>
-    <div class="service-card reveal">
-      <div class="service-icon"><i class="fas fa-key"></i></div>
-      <h3 class="service-title">Baca ID & Remote Hilang</h3>
-      <p class="service-desc">Layanan pembacaan ECU dan penggantian remote kunci yang hilang dengan teknologi terkini.</p>
+
+    <div class="svc-card reverse reveal">
+      <div class="svc-content">
+        <div class="svc-number">04</div>
+        <div class="svc-icon-row">
+          <div class="svc-icon"><i class="fas fa-key"></i></div>
+          <h3 class="svc-title">Baca ID & Remote Hilang</h3>
+        </div>
+        <p class="svc-desc">Layanan programming ID kunci dan penggantian remote yang hilang menggunakan teknologi terkini. Kami dapat memprogram ulang ECU dan membuat kunci baru tanpa perlu ke dealer — lebih cepat dan hemat biaya.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Duplikat Kunci</span><span class="svc-tag">Program Remote</span><span class="svc-tag">ECU Reprogram</span><span class="svc-tag">Immobilizer</span>
+        </div>
+      </div>
+      <div class="svc-image">
+        <img src="https://images.unsplash.com/photo-1600661653561-629509216228?w=700&auto=format&fit=crop" alt="Remote Kunci Motor" loading="lazy" />
+        <div class="svc-image-overlay"></div>
+        <span class="svc-image-badge"><i class="fas fa-shield-alt"></i> Anti Ribet</span>
+      </div>
     </div>
-    <div class="service-card reveal">
-      <div class="service-icon"><i class="fas fa-oil-can"></i></div>
-      <h3 class="service-title">Ganti Oli</h3>
-      <p class="service-desc">Penggantian oli mesin berkualitas dengan berbagai pilihan viskositas sesuai spesifikasi motor Anda.</p>
+
+    <div class="svc-card reveal">
+      <div class="svc-content">
+        <div class="svc-number">05</div>
+        <div class="svc-icon-row">
+          <div class="svc-icon"><i class="fas fa-oil-can"></i></div>
+          <h3 class="svc-title">Ganti Oli</h3>
+        </div>
+        <p class="svc-desc">Penggantian oli mesin berkualitas tinggi dengan berbagai pilihan merek dan viskositas sesuai spesifikasi motor Anda. Proses cepat 15–20 menit, teknisi kami juga melakukan pengecekan kondisi mesin secara gratis sekaligus.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Oli Mesin</span><span class="svc-tag">Oli Gardan</span><span class="svc-tag">Filter Oli</span><span class="svc-tag">Cek Gratis</span>
+        </div>
+      </div>
+      <div class="svc-image">
+        <img src="https://images.unsplash.com/photo-1616788494707-ec28f08d05a1?w=700&auto=format&fit=crop" alt="Ganti Oli Motor" loading="lazy" />
+        <div class="svc-image-overlay"></div>
+        <span class="svc-image-badge"><i class="fas fa-clock"></i> Proses 15 Menit</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ ULASAN ═══ -->
+<section id="ulasan">
+  <div class="ulasan-header reveal">
+    <div class="section-label">Apa Kata Mereka</div>
+    <h2 class="section-title">Ulasan <span>Pelanggan</span> Kami</h2>
+    <p class="section-desc" style="margin:0 auto;text-align:center">Kepercayaan dan kepuasan pelanggan adalah kebanggaan terbesar kami.</p>
+  </div>
+  <div class="marquee-wrapper">
+    <div class="marquee-track" id="marqueeTrack">
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#1554c4,#1e6fff)">AR</div>
+          <div><div class="review-name">Andi Rizky</div><div class="review-date">2 minggu lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Servis di sini sangat memuaskan! Teknisinya ramah dan cepat. Motor Beat saya yang sebelumnya susah distarter sekarang sudah normal kembali. Harga juga sangat terjangkau.</p>
+        <span class="review-service-tag">Diagnosa Injeksi</span>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#0d6e3f,#1a9a5c)">SN</div>
+          <div><div class="review-name">Siti Nuraini</div><div class="review-date">1 bulan lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Ganti oli di sini cepat banget, tidak sampai 20 menit sudah selesai. Stafnya juga mau menjelaskan kondisi motor saya secara detail. Pasti balik lagi!</p>
+        <span class="review-service-tag">Ganti Oli</span>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#7b2020,#c0392b)">BH</div>
+          <div><div class="review-name">Budi Hartono</div><div class="review-date">3 minggu lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star half"></i></div>
+        <p class="review-text">Remote motor Vario saya hilang dan panik banget. Alhamdulillah Logam Service bisa bantu programkan ulang. Prosesnya mudah dan tidak perlu ke dealer jauh-jauh.</p>
+        <span class="review-service-tag">Baca ID & Remote Hilang</span>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#7b4000,#c0762b)">DS</div>
+          <div><div class="review-name">Dewi Sartika</div><div class="review-date">2 bulan lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Beli sparepart di sini lengkap dan harganya bersaing. Saya butuh kampas rem untuk Mio dan langsung ada stoknya. Kualitas original, mantap deh!</p>
+        <span class="review-service-tag">Sparepart</span>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#1a1a6e,#2e2eb8)">FP</div>
+          <div><div class="review-name">Fajar Pratama</div><div class="review-date">1 minggu lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Pasang aksesori lampu LED di sini hasilnya rapi sekali. Teknisinya teliti dan tidak asal-asalan. Motor Ninja saya sekarang makin keren! Sangat rekomendasikan.</p>
+        <span class="review-service-tag">Accessories</span>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#1a6e3c,#27ae60)">RW</div>
+          <div><div class="review-name">Rina Wahyuni</div><div class="review-date">5 hari lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Motor saya tiba-tiba mati di jalan dan dibawa ke sini. Teknisi langsung scan dan ketemu masalahnya. Dalam 1 jam langsung bisa dipakai lagi. Terima kasih!</p>
+        <span class="review-service-tag">Diagnosa Injeksi</span>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#4a1a6e,#8e44ad)">HA</div>
+          <div><div class="review-name">Hendra Ardianto</div><div class="review-date">3 bulan lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star half"></i></div>
+        <p class="review-text">Sudah 3 tahun jadi pelanggan setia Logam Service. Selalu puas dengan hasilnya. Harga transparan, tidak ada biaya tersembunyi. Teknisinya jujur dan profesional.</p>
+        <span class="review-service-tag">Ganti Oli</span>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#6e1a1a,#c0392b)">NM</div>
+          <div><div class="review-name">Nurul Mayang</div><div class="review-date">2 minggu lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Sparepart lengkap dan asli. Saya cari rantai khusus untuk motor tua saya dan ternyata ada! Pemiliknya ramah dan mau memberi saran sparepart yang sesuai.</p>
+        <span class="review-service-tag">Sparepart</span>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#1a4a6e,#2980b9)">YS</div>
+          <div><div class="review-name">Yoga Saputra</div><div class="review-date">1 bulan lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Pasang cover jok dan spion baru di sini. Pengerjaannya rapi dan cepat. Harganya juga wajar banget. Tempat parkir luas dan nyaman untuk menunggu.</p>
+        <span class="review-service-tag">Accessories</span>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#2d6e1a,#27ae60)">LP</div>
+          <div><div class="review-name">Lestari Puspita</div><div class="review-date">4 hari lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Baru pertama kali ke Logam Service dan langsung terkesan. Bersih, tertata, teknisinya profesional. Ganti oli plus cek kondisi mesin gratis. Pasti jadi pelanggan tetap!</p>
+        <span class="review-service-tag">Ganti Oli</span>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- LOKASI -->
+<!-- ═══ LOKASI ═══ -->
 <section id="lokasi">
   <div class="lokasi-inner">
     <div class="lokasi-info reveal">
       <div class="section-label">Kunjungi Kami</div>
       <h2 class="section-title">Temukan <span>Lokasi</span> Kami</h2>
       <p class="section-desc">Kami berlokasi di pusat Sidikalang, mudah dijangkau dari berbagai penjuru kota.</p>
+
       <div class="info-row">
         <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
         <div class="info-text">
@@ -175,48 +357,62 @@
           <span>Senin – Sabtu: 08.00 – 17.00 WIB</span>
         </div>
       </div>
-      <a href="https://maps.app.goo.gl/xYF9aq6yqyqP7YNZA" target="_blank" class="btn-maps">
-        <i class="fas fa-directions"></i> Buka di Google Maps
-      </a>
+
+      <div class="maps-btns">
+        <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Sulang-Silima+No.01+Sidikalang+Kabupaten+Dairi+Sumatera+Utara" target="_blank" class="btn-maps">
+          <i class="fas fa-directions"></i> Buka di Google Maps
+        </a>
+        <a href="https://waze.com/ul?q=Jl.+Sulang-Silima+No.01+Sidikalang&navigate=yes" target="_blank" class="btn-maps-alt">
+          <i class="fas fa-road"></i> Waze
+        </a>
+      </div>
     </div>
+
     <div class="map-container reveal">
       <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.0!2d98.38!3d2.77!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMsKwNDYnMTIuMCJOIDk4wrAyMicwOC4wIkU!5e0!3m2!1sid!2sid!4v1"
-        allowfullscreen
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
+        src="https://maps.google.com/maps?q=Jl.+Sulang-Silima+No.01+Sidikalang+Kabupaten+Dairi&output=embed&z=16"
+        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
         title="Lokasi Logam Service Sidikalang"
       ></iframe>
+      <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Sulang-Silima+No.01+Sidikalang+Kabupaten+Dairi+Sumatera+Utara"
+         target="_blank" class="map-tap-overlay" aria-label="Buka di Google Maps">
+        <div class="map-open-btn">
+          <i class="fas fa-external-link-alt"></i> Ketuk untuk membuka Maps
+        </div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- KONTAK -->
+<!-- ═══ KONTAK ═══ -->
 <section id="kontak">
   <div class="kontak-box reveal">
     <div class="section-label">Hubungi Kami</div>
     <h2 class="section-title">Siap <span>Membantu</span> Anda</h2>
-    <p class="section-desc" style="margin:0 auto 8px;">Punya pertanyaan atau ingin booking servis? Hubungi kami langsung via WhatsApp, kami siap merespons dengan cepat.</p>
+    <p class="section-desc" style="margin:0 auto 8px">Punya pertanyaan atau ingin booking servis? Hubungi kami langsung via WhatsApp, kami siap merespons dengan cepat.</p>
     <div class="kontak-phone">0852-7047-3551</div>
     <p class="kontak-note">Jam Operasional: Senin – Sabtu, 08.00 – 17.00 WIB</p>
     <a href="https://wa.me/6285270473551" class="btn-wa-big" target="_blank">
-      <i class="fab fa-whatsapp"></i>
-      Chat WhatsApp Sekarang
+      <i class="fab fa-whatsapp"></i> Chat WhatsApp Sekarang
     </a>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="footer-inner">
     <div>
-      <div class="footer-brand">LOGAM<span>&nbsp;SERVICE</span></div>
+      <div class="footer-brand">
+        <div class="footer-brand-icon"><i class="fas fa-tools"></i></div>
+        LOGAM<span>&nbsp;SERVICE</span>
+      </div>
       <p class="footer-tagline">Bengkel sepeda motor profesional di Sidikalang. Melayani dengan sepenuh hati menggunakan teknisi berpengalaman dan peralatan modern.</p>
     </div>
     <div class="footer-col">
-      <h4>Informasi</h4>
+      <h4>Navigasi</h4>
       <a href="#tentang">Tentang Kami</a>
       <a href="#layanan">Layanan</a>
+      <a href="#ulasan">Ulasan</a>
       <a href="#lokasi">Lokasi</a>
       <a href="#kontak">Kontak</a>
     </div>

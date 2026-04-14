@@ -10,587 +10,257 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     :root {
-      --blue-darkest: #050d1a;
-      --blue-dark:    #0a1f3c;
-      --blue-mid:     #0d3272;
-      --blue-core:    #1554c4;
-      --blue-vivid:   #1e6fff;
-      --blue-light:   #4b9fff;
-      --blue-pale:    #d0e8ff;
-      --accent:       #f5a800;
-      --white:        #ffffff;
-      --text-body:    #d4e4ff;
-      --text-muted:   #7faad8;
-      --card-bg:      rgba(13,50,114,0.55);
-      --radius:       14px;
-      --trans:        0.35s cubic-bezier(.4,0,.2,1);
+      --blue-darkest:#050d1a; --blue-dark:#0a1f3c; --blue-mid:#0d3272;
+      --blue-core:#1554c4; --blue-vivid:#1e6fff; --blue-light:#4b9fff;
+      --blue-pale:#d0e8ff; --accent:#f5a800; --white:#ffffff;
+      --text-body:#d4e4ff; --text-muted:#7faad8;
+      --card-bg:rgba(13,50,114,0.55); --radius:14px;
+      --trans:0.35s cubic-bezier(.4,0,.2,1);
     }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Nunito',sans-serif;background:var(--blue-darkest);color:var(--white);overflow-x:hidden}
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* LOADER */
+    #loader{position:fixed;inset:0;z-index:9999;background:var(--blue-darkest);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .5s ease,visibility .5s ease}
+    #loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+    .loader-logo{font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:900;letter-spacing:4px}
+    .loader-logo span{color:var(--accent)}
+    .loader-bar{width:200px;height:3px;background:rgba(255,255,255,.15);border-radius:99px;overflow:hidden}
+    .loader-fill{height:100%;background:linear-gradient(90deg,var(--blue-vivid),var(--accent));border-radius:99px;animation:load 1.4s ease forwards}
+    @keyframes load{from{width:0}to{width:100%}}
 
-    html { scroll-behavior: smooth; }
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:900;padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:68px;background:rgba(5,13,26,.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.07)}
+    .nav-brand{font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;letter-spacing:2px;color:var(--white);text-decoration:none;display:flex;align-items:center;gap:10px}
+    .nav-brand-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--blue-core),var(--blue-vivid));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.95rem}
+    .nav-brand span{color:var(--accent)}
+    .nav-links{display:flex;gap:30px;list-style:none}
+    .nav-links a{color:var(--text-body);text-decoration:none;font-weight:600;font-size:.93rem;letter-spacing:.5px;transition:color var(--trans);position:relative}
+    .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform var(--trans)}
+    .nav-links a:hover{color:var(--white)}
+    .nav-links a:hover::after{transform:scaleX(1)}
+    .nav-cta{background:var(--blue-vivid)!important;color:var(--white)!important;padding:8px 20px;border-radius:8px}
+    .nav-cta:hover{background:var(--blue-light)!important}
+    .nav-cta::after{display:none!important}
+    .hamburger{display:none;background:none;border:none;color:var(--white);font-size:1.4rem;cursor:pointer}
+    .mobile-menu{display:none;position:fixed;inset:68px 0 0 0;z-index:800;background:rgba(5,13,26,.97);flex-direction:column;align-items:center;justify-content:center;gap:32px}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{color:var(--white);text-decoration:none;font-size:1.4rem;font-weight:700;font-family:'Barlow Condensed',sans-serif;letter-spacing:2px;transition:color var(--trans)}
+    .mobile-menu a:hover{color:var(--accent)}
 
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: var(--blue-darkest);
-      color: var(--white);
-      overflow-x: hidden;
-    }
+    /* HERO */
+    #hero{min-height:100vh;position:relative;display:flex;align-items:center;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;background:linear-gradient(160deg,rgba(5,13,26,.93) 40%,rgba(21,84,196,.65) 100%),url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&auto=format&fit=crop') center/cover no-repeat}
+    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(30,111,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(30,111,255,.07) 1px,transparent 1px);background-size:60px 60px}
+    .hero-content{position:relative;z-index:2;max-width:760px;padding:130px 5% 180px;animation:fadeUp .9s ease forwards}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(30,111,255,.2);border:1px solid rgba(30,111,255,.4);padding:6px 16px;border-radius:99px;font-size:.82rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue-light);margin-bottom:24px}
+    .hero-badge i{font-size:.7rem;color:var(--accent)}
+    h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(3.5rem,9vw,7rem);font-weight:900;line-height:.92;letter-spacing:-1px;margin-bottom:16px}
+    h1 span{color:var(--accent)}
+    .hero-sub{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.2rem,3vw,1.7rem);font-weight:600;color:var(--blue-light);letter-spacing:3px;text-transform:uppercase;margin-bottom:20px}
+    .hero-desc{font-size:1.05rem;color:var(--text-body);line-height:1.7;max-width:520px;margin-bottom:36px}
+    .hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:0}
+    .btn-wa{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#25d366,#128c7e);color:var(--white);padding:15px 28px;border-radius:var(--radius);font-weight:700;font-size:.95rem;text-decoration:none;transition:transform var(--trans),box-shadow var(--trans);box-shadow:0 6px 24px rgba(37,211,102,.3)}
+    .btn-wa:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(37,211,102,.45)}
+    .btn-outline{display:inline-flex;align-items:center;gap:10px;background:rgba(30,111,255,.15);border:2px solid rgba(30,111,255,.5);color:var(--white);padding:13px 28px;border-radius:var(--radius);font-weight:700;font-size:.95rem;text-decoration:none;transition:background var(--trans),border-color var(--trans),transform var(--trans)}
+    .btn-outline:hover{background:rgba(30,111,255,.3);border-color:var(--blue-vivid);transform:translateY(-3px)}
 
-    /* ── LOADING ── */
-    #loader {
-      position: fixed; inset: 0; z-index: 9999;
-      background: var(--blue-darkest);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 18px;
-      transition: opacity .5s ease, visibility .5s ease;
-    }
-    #loader.hidden { opacity: 0; visibility: hidden; }
-    .loader-logo {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 2.4rem; font-weight: 900;
-      letter-spacing: 4px;
-      color: var(--white);
-    }
-    .loader-logo span { color: var(--accent); }
-    .loader-bar {
-      width: 200px; height: 3px;
-      background: rgba(255,255,255,.15);
-      border-radius: 99px;
-      overflow: hidden;
-    }
-    .loader-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--blue-vivid), var(--accent));
-      border-radius: 99px;
-      animation: load 1.4s ease forwards;
-    }
-    @keyframes load { from { width: 0; } to { width: 100%; } }
+    /* BRAND STRIP */
+    .hero-brand-section{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:22px 5%;background:rgba(5,13,26,.78);backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,.08)}
+    .hero-brand-inner{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+    .hero-brand-label{font-size:.72rem;font-weight:700;letter-spacing:2.5px;color:var(--text-muted);text-transform:uppercase;white-space:nowrap}
+    .hero-brand-divider{width:1px;height:28px;background:rgba(255,255,255,.12);flex-shrink:0}
+    .brand-logos-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .brand-logo-pill{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.11);padding:9px 18px;border-radius:10px;transition:background var(--trans),border-color var(--trans),transform var(--trans);cursor:default}
+    .brand-logo-pill:hover{background:rgba(30,111,255,.2);border-color:rgba(30,111,255,.4);transform:translateY(-2px)}
+    .bname{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.75)}
+    .bdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+    .bdot-red{background:#e8231a}.bdot-blue{background:#1e6fff}.bdot-navy{background:#003f9e}.bdot-green{background:#00a050}.bdot-orange{background:#f5a800}
 
-    /* ── NAVBAR ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
-      padding: 0 5%;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 68px;
-      background: rgba(5,13,26,.85);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255,255,255,.07);
-      transition: background var(--trans);
-    }
-    .nav-brand {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.6rem; font-weight: 900;
-      letter-spacing: 2px;
-      color: var(--white);
-      text-decoration: none;
-    }
-    .nav-brand span { color: var(--accent); }
-    .nav-links { display: flex; gap: 30px; list-style: none; }
-    .nav-links a {
-      color: var(--text-body);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: .93rem;
-      letter-spacing: .5px;
-      transition: color var(--trans);
-      position: relative;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute; bottom: -4px; left: 0; right: 0;
-      height: 2px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform var(--trans);
-    }
-    .nav-links a:hover { color: var(--white); }
-    .nav-links a:hover::after { transform: scaleX(1); }
-    .nav-cta {
-      background: var(--blue-vivid);
-      color: var(--white) !important;
-      padding: 8px 20px;
-      border-radius: 8px;
-      transition: background var(--trans), transform var(--trans) !important;
-    }
-    .nav-cta:hover { background: var(--blue-light) !important; transform: translateY(-2px); }
-    .nav-cta::after { display: none !important; }
-    .hamburger {
-      display: none;
-      background: none; border: none;
-      color: var(--white); font-size: 1.4rem; cursor: pointer;
-    }
-    .mobile-menu {
-      display: none;
-      position: fixed; inset: 68px 0 0 0; z-index: 800;
-      background: rgba(5,13,26,.97);
-      flex-direction: column; align-items: center; justify-content: center;
-      gap: 32px;
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      color: var(--white); text-decoration: none;
-      font-size: 1.4rem; font-weight: 700;
-      font-family: 'Barlow Condensed', sans-serif;
-      letter-spacing: 2px;
-      transition: color var(--trans);
-    }
-    .mobile-menu a:hover { color: var(--accent); }
+    /* SECTIONS */
+    section{padding:90px 5%}
+    .section-label{display:inline-flex;align-items:center;gap:8px;color:var(--blue-light);font-size:.78rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px}
+    .section-label::before{content:'';display:block;width:28px;height:2px;background:var(--accent)}
+    .section-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.05;margin-bottom:16px}
+    .section-title span{color:var(--blue-light)}
+    .section-desc{color:var(--text-body);font-size:1rem;line-height:1.75;max-width:560px}
 
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      position: relative;
-      display: flex; align-items: center;
-      overflow: hidden;
-    }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background:
-        linear-gradient(160deg, rgba(5,13,26,.92) 40%, rgba(21,84,196,.65) 100%),
-        url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&auto=format&fit=crop') center/cover no-repeat;
-    }
-    .hero-grid {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(30,111,255,.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(30,111,255,.07) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-    .hero-content {
-      position: relative; z-index: 2;
-      max-width: 740px;
-      padding: 130px 5% 80px;
-      animation: fadeUp .9s ease forwards;
-    }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(30,111,255,.2);
-      border: 1px solid rgba(30,111,255,.4);
-      padding: 6px 16px; border-radius: 99px;
-      font-size: .82rem; font-weight: 700;
-      letter-spacing: 2px; text-transform: uppercase;
-      color: var(--blue-light);
-      margin-bottom: 24px;
-    }
-    .hero-badge i { font-size: .7rem; color: var(--accent); }
-    h1 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(3.5rem, 9vw, 7rem);
-      font-weight: 900;
-      line-height: .92;
-      letter-spacing: -1px;
-      margin-bottom: 16px;
-    }
-    h1 span { color: var(--accent); }
-    .hero-sub {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(1.2rem, 3vw, 1.7rem);
-      font-weight: 600;
-      color: var(--blue-light);
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-    .hero-desc {
-      font-size: 1.05rem;
-      color: var(--text-body);
-      line-height: 1.7;
-      max-width: 520px;
-      margin-bottom: 36px;
-    }
-    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
-    .btn-wa {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: linear-gradient(135deg, #25d366, #128c7e);
-      color: var(--white);
-      padding: 15px 28px;
-      border-radius: var(--radius);
-      font-weight: 700; font-size: .95rem;
-      text-decoration: none;
-      transition: transform var(--trans), box-shadow var(--trans);
-      box-shadow: 0 6px 24px rgba(37,211,102,.3);
-    }
-    .btn-wa:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(37,211,102,.45); }
-    .btn-outline {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: rgba(30,111,255,.15);
-      border: 2px solid rgba(30,111,255,.5);
-      color: var(--white);
-      padding: 13px 28px;
-      border-radius: var(--radius);
-      font-weight: 700; font-size: .95rem;
-      text-decoration: none;
-      transition: background var(--trans), border-color var(--trans), transform var(--trans);
-    }
-    .btn-outline:hover { background: rgba(30,111,255,.3); border-color: var(--blue-vivid); transform: translateY(-3px); }
+    /* TENTANG */
+    #tentang{background:linear-gradient(180deg,var(--blue-darkest) 0%,var(--blue-dark) 100%)}
+    .tentang-inner{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+    .tentang-visual{display:flex;align-items:center;justify-content:center}
+    .tentang-hexgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .hex-cell{aspect-ratio:1;border-radius:16px;background:var(--card-bg);border:1px solid rgba(30,111,255,.2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:.78rem;font-weight:700;color:var(--text-muted);letter-spacing:1px;transition:background var(--trans),border-color var(--trans),transform var(--trans);cursor:default}
+    .hex-cell i{font-size:1.5rem;color:var(--blue-vivid)}
+    .hex-cell:hover{background:rgba(21,84,196,.35);border-color:var(--blue-vivid);transform:scale(1.05)}
+    .hex-cell.accent-cell{background:linear-gradient(135deg,var(--blue-core),var(--blue-vivid));border-color:var(--blue-vivid);color:var(--white)}
+    .hex-cell.accent-cell i{color:var(--white)}
+    .tentang-text .section-desc{margin-bottom:12px}
+    .stat-row{display:flex;gap:36px;flex-wrap:wrap;margin-top:32px}
+    .stat-num{font-family:'Barlow Condensed',sans-serif;font-size:2.6rem;font-weight:900;color:var(--accent);line-height:1}
+    .stat-lbl{font-size:.83rem;color:var(--text-muted);font-weight:600;margin-top:4px}
 
-    /* Brand logos strip */
-    .brand-strip {
-      position: absolute; bottom: 40px; left: 5%; right: 5%;
-      display: flex; align-items: center; gap: 24px;
-      z-index: 2;
-      flex-wrap: wrap;
-    }
-    .brand-label {
-      font-size: .75rem; font-weight: 700; letter-spacing: 2px;
-      color: var(--text-muted); text-transform: uppercase;
-    }
-    .brand-logos { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .brand-tag {
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
-      padding: 6px 16px;
-      border-radius: 8px;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .9rem; font-weight: 700;
-      letter-spacing: 1.5px;
-      color: rgba(255,255,255,.7);
-      transition: background var(--trans), color var(--trans);
-    }
-    .brand-tag:hover { background: rgba(30,111,255,.25); color: var(--white); }
+    /* LAYANAN REDESIGN */
+    #layanan{background:var(--blue-dark)}
+    .layanan-header{text-align:center;margin-bottom:60px}
+    .layanan-header .section-label{justify-content:center}
+    .layanan-header .section-desc{margin:0 auto;text-align:center}
+    .service-list{display:flex;flex-direction:column;gap:28px}
+    .svc-card{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:20px;overflow:hidden;border:1px solid rgba(30,111,255,.18);background:var(--card-bg);transition:transform var(--trans),box-shadow var(--trans),border-color var(--trans)}
+    .svc-card:hover{transform:translateY(-5px);box-shadow:0 24px 60px rgba(0,0,0,.45);border-color:rgba(30,111,255,.42)}
+    .svc-card.reverse{direction:rtl}
+    .svc-card.reverse>*{direction:ltr}
+    .svc-content{padding:44px 40px;display:flex;flex-direction:column;justify-content:center;position:relative}
+    .svc-content::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,var(--blue-vivid),var(--accent));border-radius:4px 0 0 4px}
+    .svc-card.reverse .svc-content::before{left:auto;right:0;border-radius:0 4px 4px 0}
+    .svc-number{font-family:'Barlow Condensed',sans-serif;font-size:4.5rem;font-weight:900;color:rgba(30,111,255,.12);line-height:1;margin-bottom:-10px;letter-spacing:-2px}
+    .svc-icon-row{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+    .svc-icon{width:52px;height:52px;background:linear-gradient(135deg,rgba(21,84,196,.5),rgba(30,111,255,.3));border:1px solid rgba(30,111,255,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--blue-light);transition:background var(--trans);flex-shrink:0}
+    .svc-card:hover .svc-icon{background:linear-gradient(135deg,var(--blue-core),var(--blue-vivid));color:var(--white)}
+    .svc-title{font-family:'Barlow Condensed',sans-serif;font-size:1.65rem;font-weight:800;letter-spacing:.5px}
+    .svc-desc{color:var(--text-body);font-size:.93rem;line-height:1.7;margin-bottom:20px}
+    .svc-tags{display:flex;gap:8px;flex-wrap:wrap}
+    .svc-tag{background:rgba(30,111,255,.15);border:1px solid rgba(30,111,255,.25);color:var(--blue-light);font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:99px;letter-spacing:.5px}
+    .svc-image{position:relative;overflow:hidden;min-height:280px}
+    .svc-image img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;display:block}
+    .svc-card:hover .svc-image img{transform:scale(1.06)}
+    .svc-image-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(5,13,26,.3),rgba(21,84,196,.25))}
+    .svc-image-badge{position:absolute;bottom:16px;right:16px;background:rgba(5,13,26,.8);backdrop-filter:blur(8px);border:1px solid rgba(30,111,255,.3);padding:6px 14px;border-radius:8px;font-size:.78rem;font-weight:700;color:var(--blue-light);letter-spacing:1px}
 
-    /* ── SECTIONS COMMON ── */
-    section { padding: 90px 5%; }
-    .section-label {
-      display: inline-flex; align-items: center; gap: 8px;
-      color: var(--blue-light);
-      font-size: .78rem; font-weight: 700;
-      letter-spacing: 3px; text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-    .section-label::before {
-      content: '';
-      display: block; width: 28px; height: 2px;
-      background: var(--accent);
-    }
-    .section-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 900;
-      line-height: 1.05;
-      margin-bottom: 16px;
-    }
-    .section-title span { color: var(--blue-light); }
-    .section-desc {
-      color: var(--text-body);
-      font-size: 1rem;
-      line-height: 1.75;
-      max-width: 560px;
-    }
+    /* ULASAN MARQUEE */
+    #ulasan{background:linear-gradient(180deg,var(--blue-dark) 0%,var(--blue-darkest) 100%);padding:70px 0;overflow:hidden}
+    .ulasan-header{text-align:center;padding:0 5%;margin-bottom:44px}
+    .ulasan-header .section-label{justify-content:center}
+    .marquee-wrapper{overflow:hidden;position:relative}
+    .marquee-wrapper::before,.marquee-wrapper::after{content:'';position:absolute;top:0;bottom:0;z-index:2;width:120px;pointer-events:none}
+    .marquee-wrapper::before{left:0;background:linear-gradient(90deg,var(--blue-darkest) 0%,transparent 100%)}
+    .marquee-wrapper::after{right:0;background:linear-gradient(270deg,var(--blue-darkest) 0%,transparent 100%)}
+    .marquee-track{display:flex;gap:20px;width:max-content;animation:marquee 42s linear infinite;padding:8px 0 20px}
+    .marquee-track:hover{animation-play-state:paused}
+    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .review-card{flex-shrink:0;width:300px;background:var(--card-bg);border:1px solid rgba(30,111,255,.18);border-radius:16px;padding:24px 22px;transition:border-color var(--trans),transform var(--trans)}
+    .review-card:hover{border-color:rgba(30,111,255,.45);transform:translateY(-4px)}
+    .review-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+    .review-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;flex-shrink:0}
+    .review-name{font-weight:700;font-size:.95rem}
+    .review-date{font-size:.75rem;color:var(--text-muted)}
+    .review-stars{display:flex;gap:3px;margin-bottom:10px}
+    .review-stars i{color:var(--accent);font-size:.85rem}
+    .review-stars i.half{opacity:.5}
+    .review-text{color:var(--text-body);font-size:.88rem;line-height:1.65}
+    .review-service-tag{margin-top:12px;display:inline-block;background:rgba(30,111,255,.15);border:1px solid rgba(30,111,255,.22);color:var(--blue-light);font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:99px;letter-spacing:.5px}
 
-    /* ── TENTANG KAMI ── */
-    #tentang {
-      background: linear-gradient(180deg, var(--blue-darkest) 0%, var(--blue-dark) 100%);
-    }
-    .tentang-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 70px;
-      align-items: center;
-    }
-    .tentang-visual {
-      position: relative;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .tentang-hexgrid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
-    }
-    .hex-cell {
-      aspect-ratio: 1;
-      border-radius: 16px;
-      background: var(--card-bg);
-      border: 1px solid rgba(30,111,255,.2);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 8px;
-      font-size: .78rem; font-weight: 700;
-      color: var(--text-muted);
-      letter-spacing: 1px;
-      transition: background var(--trans), border-color var(--trans), transform var(--trans);
-      cursor: default;
-    }
-    .hex-cell i { font-size: 1.5rem; color: var(--blue-vivid); }
-    .hex-cell:hover { background: rgba(21,84,196,.35); border-color: var(--blue-vivid); transform: scale(1.05); }
-    .hex-cell.accent-cell { background: linear-gradient(135deg, var(--blue-core), var(--blue-vivid)); border-color: var(--blue-vivid); }
-    .hex-cell.accent-cell i { color: var(--white); }
-    .hex-cell.accent-cell { color: var(--white); }
-    .tentang-text .section-desc { margin-bottom: 28px; }
-    .stat-row { display: flex; gap: 36px; flex-wrap: wrap; margin-top: 32px; }
-    .stat-box { text-align: left; }
-    .stat-num {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 2.6rem; font-weight: 900;
-      color: var(--accent);
-      line-height: 1;
-    }
-    .stat-lbl { font-size: .83rem; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+    /* LOKASI */
+    #lokasi{background:linear-gradient(180deg,var(--blue-darkest) 0%,var(--blue-dark) 60%,var(--blue-darkest) 100%)}
+    .lokasi-inner{display:grid;grid-template-columns:1fr 1.5fr;gap:56px;align-items:start}
+    .lokasi-info .section-desc{margin-bottom:28px}
+    .info-row{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px}
+    .info-icon{width:44px;height:44px;flex-shrink:0;background:rgba(21,84,196,.3);border:1px solid rgba(30,111,255,.3);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--blue-light);font-size:1.1rem}
+    .info-text strong{display:block;font-size:.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px}
+    .info-text span{font-size:.97rem;color:var(--white);font-weight:600}
+    .maps-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+    .btn-maps{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--blue-core),var(--blue-vivid));color:var(--white);padding:14px 26px;border-radius:var(--radius);font-weight:700;font-size:.92rem;text-decoration:none;transition:transform var(--trans),box-shadow var(--trans);box-shadow:0 6px 20px rgba(21,84,196,.4)}
+    .btn-maps:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(21,84,196,.55)}
+    .btn-maps-alt{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:var(--white);padding:13px 22px;border-radius:var(--radius);font-weight:700;font-size:.92rem;text-decoration:none;transition:background var(--trans),transform var(--trans)}
+    .btn-maps-alt:hover{background:rgba(255,255,255,.14);transform:translateY(-3px)}
+    .map-container{border-radius:var(--radius);overflow:hidden;border:2px solid rgba(30,111,255,.25);box-shadow:0 20px 50px rgba(0,0,0,.4);height:400px;position:relative;cursor:pointer}
+    .map-container iframe{width:100%;height:100%;border:none;display:block}
+    .map-tap-overlay{position:absolute;inset:0;z-index:3;display:flex;align-items:flex-end;justify-content:center;padding-bottom:20px;background:transparent;text-decoration:none}
+    .map-open-btn{background:rgba(5,13,26,.85);backdrop-filter:blur(10px);border:1px solid rgba(30,111,255,.35);color:var(--white);padding:10px 22px;border-radius:10px;font-weight:700;font-size:.88rem;display:flex;align-items:center;gap:8px;transition:background var(--trans)}
+    .map-open-btn:hover{background:rgba(21,84,196,.7)}
 
-    /* ── LAYANAN ── */
-    #layanan {
-      background: var(--blue-dark);
-    }
-    .layanan-header { text-align: center; margin-bottom: 52px; }
-    .layanan-header .section-label { justify-content: center; }
-    .layanan-header .section-desc { margin: 0 auto; text-align: center; }
-    .layanan-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 22px;
-    }
-    .service-card {
-      background: var(--card-bg);
-      border: 1px solid rgba(30,111,255,.18);
-      border-radius: var(--radius);
-      padding: 32px 24px;
-      transition: transform var(--trans), border-color var(--trans), box-shadow var(--trans);
-      position: relative;
-      overflow: hidden;
-    }
-    .service-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--blue-vivid), var(--accent));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform var(--trans);
-    }
-    .service-card:hover { transform: translateY(-6px); border-color: rgba(30,111,255,.5); box-shadow: 0 20px 50px rgba(0,0,0,.4); }
-    .service-card:hover::before { transform: scaleX(1); }
-    .service-icon {
-      width: 60px; height: 60px;
-      background: linear-gradient(135deg, rgba(21,84,196,.4), rgba(30,111,255,.2));
-      border: 1px solid rgba(30,111,255,.3);
-      border-radius: 14px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem;
-      color: var(--blue-light);
-      margin-bottom: 20px;
-      transition: background var(--trans);
-    }
-    .service-card:hover .service-icon { background: linear-gradient(135deg, var(--blue-core), var(--blue-vivid)); color: var(--white); }
-    .service-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.2rem; font-weight: 700;
-      letter-spacing: .5px;
-      margin-bottom: 10px;
-    }
-    .service-desc { font-size: .88rem; color: var(--text-muted); line-height: 1.65; }
+    /* KONTAK */
+    #kontak{background:var(--blue-dark);text-align:center}
+    .kontak-box{max-width:560px;margin:0 auto}
+    .kontak-box .section-label{justify-content:center}
+    .kontak-phone{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,6vw,3.5rem);font-weight:900;margin:20px 0 12px;letter-spacing:2px}
+    .kontak-note{color:var(--text-muted);font-size:.95rem;margin-bottom:36px}
+    .btn-wa-big{display:inline-flex;align-items:center;gap:14px;background:linear-gradient(135deg,#25d366,#128c7e);color:var(--white);padding:18px 40px;border-radius:var(--radius);font-weight:800;font-size:1.08rem;text-decoration:none;transition:transform var(--trans),box-shadow var(--trans);box-shadow:0 8px 28px rgba(37,211,102,.35)}
+    .btn-wa-big i{font-size:1.4rem}
+    .btn-wa-big:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 14px 36px rgba(37,211,102,.5)}
 
-    /* ── LOKASI ── */
-    #lokasi {
-      background: linear-gradient(180deg, var(--blue-dark) 0%, var(--blue-darkest) 100%);
-    }
-    .lokasi-inner {
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 56px;
-      align-items: start;
-    }
-    .lokasi-info { padding-top: 10px; }
-    .lokasi-info .section-desc { margin-bottom: 28px; }
-    .info-row {
-      display: flex; align-items: flex-start; gap: 14px;
-      margin-bottom: 22px;
-    }
-    .info-icon {
-      width: 44px; height: 44px; flex-shrink: 0;
-      background: rgba(21,84,196,.3);
-      border: 1px solid rgba(30,111,255,.3);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--blue-light); font-size: 1.1rem;
-    }
-    .info-text strong { display: block; font-size: .8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
-    .info-text span { font-size: .97rem; color: var(--white); font-weight: 600; }
-    .btn-maps {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: linear-gradient(135deg, var(--blue-core), var(--blue-vivid));
-      color: var(--white);
-      padding: 14px 26px;
-      border-radius: var(--radius);
-      font-weight: 700; font-size: .92rem;
-      text-decoration: none;
-      transition: transform var(--trans), box-shadow var(--trans);
-      margin-top: 8px;
-      box-shadow: 0 6px 20px rgba(21,84,196,.4);
-    }
-    .btn-maps:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(21,84,196,.55); }
-    .map-container {
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 2px solid rgba(30,111,255,.25);
-      box-shadow: 0 20px 50px rgba(0,0,0,.4);
-      height: 380px;
-    }
-    .map-container iframe { width: 100%; height: 100%; border: none; display: block; }
+    /* FOOTER */
+    footer{background:var(--blue-darkest);border-top:1px solid rgba(255,255,255,.07);padding:40px 5% 30px}
+    .footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:36px}
+    .footer-brand{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;letter-spacing:2px;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+    .footer-brand span{color:var(--accent)}
+    .footer-brand-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--blue-core),var(--blue-vivid));border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.85rem}
+    .footer-tagline{color:var(--text-muted);font-size:.88rem;line-height:1.65;max-width:280px}
+    .footer-col h4{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px}
+    .footer-col p,.footer-col a{color:var(--text-body);font-size:.9rem;line-height:1.9;text-decoration:none;display:block;transition:color var(--trans)}
+    .footer-col a:hover{color:var(--blue-light)}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:.82rem;color:var(--text-muted)}
+    .footer-bottom-brand{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:1px}
+    .footer-bottom-brand span{color:var(--accent)}
 
-    /* ── KONTAK ── */
-    #kontak {
-      background: var(--blue-dark);
-      text-align: center;
-    }
-    .kontak-box {
-      max-width: 560px;
-      margin: 0 auto;
-    }
-    .kontak-box .section-label { justify-content: center; }
-    .kontak-phone {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(2rem, 6vw, 3.5rem);
-      font-weight: 900;
-      color: var(--white);
-      margin: 20px 0 12px;
-      letter-spacing: 2px;
-    }
-    .kontak-note { color: var(--text-muted); font-size: .95rem; margin-bottom: 36px; }
-    .btn-wa-big {
-      display: inline-flex; align-items: center; gap: 14px;
-      background: linear-gradient(135deg, #25d366, #128c7e);
-      color: var(--white);
-      padding: 18px 40px;
-      border-radius: var(--radius);
-      font-weight: 800; font-size: 1.08rem;
-      text-decoration: none;
-      transition: transform var(--trans), box-shadow var(--trans);
-      box-shadow: 0 8px 28px rgba(37,211,102,.35);
-    }
-    .btn-wa-big i { font-size: 1.4rem; }
-    .btn-wa-big:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 14px 36px rgba(37,211,102,.5); }
+    /* FLOAT WA */
+    .float-wa{position:fixed;bottom:28px;right:28px;z-index:999;width:58px;height:58px;background:linear-gradient(135deg,#25d366,#128c7e);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.7rem;color:var(--white);text-decoration:none;box-shadow:0 6px 24px rgba(37,211,102,.5);transition:transform var(--trans);animation:pulse 2.5s infinite}
+    .float-wa:hover{transform:scale(1.12);animation:none}
+    @keyframes pulse{0%,100%{box-shadow:0 6px 24px rgba(37,211,102,.5)}50%{box-shadow:0 6px 36px rgba(37,211,102,.8),0 0 0 10px rgba(37,211,102,.12)}}
 
-    /* ── FOOTER ── */
-    footer {
-      background: var(--blue-darkest);
-      border-top: 1px solid rgba(255,255,255,.07);
-      padding: 40px 5% 30px;
-    }
-    .footer-inner {
-      display: grid; grid-template-columns: 2fr 1fr 1fr;
-      gap: 40px; margin-bottom: 36px;
-    }
-    .footer-brand {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.8rem; font-weight: 900;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
-    }
-    .footer-brand span { color: var(--accent); }
-    .footer-tagline { color: var(--text-muted); font-size: .88rem; line-height: 1.65; max-width: 280px; }
-    .footer-col h4 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: .85rem; font-weight: 700;
-      letter-spacing: 2px; text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 14px;
-    }
-    .footer-col p, .footer-col a {
-      color: var(--text-body); font-size: .9rem;
-      line-height: 1.9; text-decoration: none;
-      display: block;
-      transition: color var(--trans);
-    }
-    .footer-col a:hover { color: var(--blue-light); }
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,.07);
-      padding-top: 20px;
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 12px;
-      font-size: .82rem;
-      color: var(--text-muted);
-    }
-    .footer-bottom-brand {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700; letter-spacing: 1px;
-    }
-    .footer-bottom-brand span { color: var(--accent); }
+    /* REVEAL */
+    .reveal{opacity:0;transform:translateY(36px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
 
-    /* ── FLOATING WA ── */
-    .float-wa {
-      position: fixed; bottom: 28px; right: 28px; z-index: 999;
-      width: 58px; height: 58px;
-      background: linear-gradient(135deg, #25d366, #128c7e);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.7rem; color: var(--white);
-      text-decoration: none;
-      box-shadow: 0 6px 24px rgba(37,211,102,.5);
-      transition: transform var(--trans), box-shadow var(--trans);
-      animation: pulse 2.5s infinite;
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      .tentang-inner,.lokasi-inner,.footer-inner{grid-template-columns:1fr}
+      .svc-card,.svc-card.reverse{grid-template-columns:1fr;direction:ltr}
+      .svc-card.reverse .svc-content::before{left:0;right:auto;border-radius:4px 0 0 4px}
+      .svc-image{min-height:220px;order:-1}
+      .map-container{height:280px}
+      .footer-inner{grid-template-columns:1fr 1fr}
     }
-    .float-wa:hover { transform: scale(1.12); box-shadow: 0 10px 34px rgba(37,211,102,.65); animation: none; }
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 6px 24px rgba(37,211,102,.5); }
-      50% { box-shadow: 0 6px 36px rgba(37,211,102,.8), 0 0 0 10px rgba(37,211,102,.12); }
-    }
-
-    /* ── SCROLL REVEAL ── */
-    .reveal {
-      opacity: 0; transform: translateY(36px);
-      transition: opacity .7s ease, transform .7s ease;
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      .tentang-inner, .lokasi-inner, .footer-inner {
-        grid-template-columns: 1fr;
-      }
-      .tentang-visual { order: -1; }
-      .map-container { height: 280px; }
-      .footer-inner { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 640px) {
-      .nav-links { display: none; }
-      .hamburger { display: block; }
-      .footer-inner { grid-template-columns: 1fr; }
-      .brand-strip { bottom: 20px; }
-      .hero-btns { flex-direction: column; }
-      .hero-btns a { text-align: center; justify-content: center; }
-      .stat-row { gap: 20px; }
-      section { padding: 70px 5%; }
+    @media(max-width:640px){
+      .nav-links{display:none}
+      .hamburger{display:block}
+      .footer-inner{grid-template-columns:1fr}
+      section{padding:70px 5%}
+      .hero-btns{flex-direction:column}
+      .hero-btns a{justify-content:center}
+      .stat-row{gap:20px}
+      .svc-content{padding:28px 22px}
     }
   </style>
 </head>
 <body>
 
-<!-- LOADER -->
 <div id="loader">
   <div class="loader-logo">LOGAM<span>&nbsp;SERVICE</span></div>
   <div class="loader-bar"><div class="loader-fill"></div></div>
 </div>
 
-<!-- FLOATING WA -->
 <a href="https://wa.me/6285270473551" class="float-wa" target="_blank" rel="noopener" aria-label="Chat WhatsApp">
   <i class="fab fa-whatsapp"></i>
 </a>
 
-<!-- NAVBAR -->
-<nav id="navbar">
-  <a href="#" class="nav-brand">LOGAM<span>&nbsp;SERVICE</span></a>
+<nav>
+  <a href="#" class="nav-brand">
+    <div class="nav-brand-icon"><i class="fas fa-tools"></i></div>
+    LOGAM<span>&nbsp;SERVICE</span>
+  </a>
   <ul class="nav-links">
     <li><a href="#tentang">Tentang</a></li>
     <li><a href="#layanan">Layanan</a></li>
+    <li><a href="#ulasan">Ulasan</a></li>
     <li><a href="#lokasi">Lokasi</a></li>
     <li><a href="https://wa.me/6285270473551" class="nav-cta" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+  <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="#tentang"  onclick="closeMobile()">Tentang Kami</a>
   <a href="#layanan"  onclick="closeMobile()">Layanan</a>
+  <a href="#ulasan"   onclick="closeMobile()">Ulasan</a>
   <a href="#lokasi"   onclick="closeMobile()">Lokasi</a>
   <a href="#kontak"   onclick="closeMobile()">Kontak</a>
   <a href="https://wa.me/6285270473551" target="_blank">WhatsApp</a>
 </div>
 
-<!-- HERO -->
+<!-- ═══ HERO ═══ -->
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
@@ -604,19 +274,24 @@
       <a href="#layanan" class="btn-outline"><i class="fas fa-tools"></i> Lihat Layanan</a>
     </div>
   </div>
-  <div class="brand-strip">
-    <span class="brand-label">Melayani:</span>
-    <div class="brand-logos">
-      <span class="brand-tag">Honda</span>
-      <span class="brand-tag">Yamaha</span>
-      <span class="brand-tag">Suzuki</span>
-      <span class="brand-tag">Kawasaki</span>
-      <span class="brand-tag">TVS</span>
+
+  <!-- BRAND LOGO SPACE -->
+  <div class="hero-brand-section">
+    <div class="hero-brand-inner">
+      <span class="hero-brand-label">Kami Melayani</span>
+      <div class="hero-brand-divider"></div>
+      <div class="brand-logos-row">
+        <div class="brand-logo-pill"><span class="bdot bdot-red"></span><span class="bname">HONDA</span></div>
+        <div class="brand-logo-pill"><span class="bdot bdot-blue"></span><span class="bname">YAMAHA</span></div>
+        <div class="brand-logo-pill"><span class="bdot bdot-navy"></span><span class="bname">SUZUKI</span></div>
+        <div class="brand-logo-pill"><span class="bdot bdot-green"></span><span class="bname">KAWASAKI</span></div>
+        <div class="brand-logo-pill"><span class="bdot bdot-orange"></span><span class="bname">TVS</span></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- TENTANG KAMI -->
+<!-- ═══ TENTANG ═══ -->
 <section id="tentang">
   <div class="tentang-inner">
     <div class="tentang-visual reveal">
@@ -636,68 +311,246 @@
       <div class="section-label">Tentang Kami</div>
       <h2 class="section-title">Bengkel Motor <span>Kepercayaan</span> Anda</h2>
       <p class="section-desc">Logam Service adalah bengkel sepeda motor yang menyediakan berbagai layanan perawatan dan perbaikan motor dengan kualitas terbaik. Mengutamakan kepuasan pelanggan, kecepatan pengerjaan, dan hasil yang maksimal.</p>
-      <p class="section-desc">Didukung oleh teknisi berpengalaman dan peralatan diagnostik terkini, kami siap menangani segala jenis kerusakan dan perawatan kendaraan bermotor Anda.</p>
+      <p class="section-desc" style="margin-top:12px">Didukung oleh teknisi berpengalaman dan peralatan diagnostik terkini, kami siap menangani segala jenis kerusakan dan perawatan kendaraan bermotor Anda.</p>
       <div class="stat-row">
-        <div class="stat-box">
-          <div class="stat-num">500+</div>
-          <div class="stat-lbl">Motor Ditangani</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num">5+</div>
-          <div class="stat-lbl">Tahun Pengalaman</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num">100%</div>
-          <div class="stat-lbl">Kepuasan Pelanggan</div>
-        </div>
+        <div class="stat-box"><div class="stat-num">500+</div><div class="stat-lbl">Motor Ditangani</div></div>
+        <div class="stat-box"><div class="stat-num">5+</div><div class="stat-lbl">Tahun Pengalaman</div></div>
+        <div class="stat-box"><div class="stat-num">100%</div><div class="stat-lbl">Kepuasan Pelanggan</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- LAYANAN -->
+<!-- ═══ LAYANAN ═══ -->
 <section id="layanan">
   <div class="layanan-header reveal">
     <div class="section-label">Apa yang Kami Lakukan</div>
     <h2 class="section-title">Layanan <span>Unggulan</span> Kami</h2>
-    <p class="section-desc">Kami menyediakan berbagai layanan perawatan dan perbaikan motor lengkap dengan teknisi profesional.</p>
+    <p class="section-desc">Kami menyediakan berbagai layanan perawatan dan perbaikan motor dengan teknisi profesional dan peralatan terkini.</p>
   </div>
-  <div class="layanan-grid">
-    <div class="service-card reveal">
-      <div class="service-icon"><i class="fas fa-boxes"></i></div>
-      <h3 class="service-title">Sparepart</h3>
-      <p class="service-desc">Suku cadang original dan berkualitas tersedia lengkap untuk berbagai merk dan tipe sepeda motor.</p>
+
+  <div class="service-list">
+
+    <div class="svc-card reveal">
+      <div class="svc-content">
+        <div class="svc-number">01</div>
+        <div class="svc-icon-row">
+          <div class="svc-icon"><i class="fas fa-boxes"></i></div>
+          <h3 class="svc-title">Sparepart</h3>
+        </div>
+        <p class="svc-desc">Tersedia suku cadang original dan aftermarket berkualitas untuk semua merk motor populer. Mulai dari filter, busi, kampas rem, rantai, hingga komponen mesin — semuanya tersedia dengan harga kompetitif dan terjamin kualitasnya.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Filter Udara</span><span class="svc-tag">Busi</span><span class="svc-tag">Kampas Rem</span><span class="svc-tag">Rantai</span><span class="svc-tag">Komponen Mesin</span>
+        </div>
+      </div>
+      <div class="svc-image">
+        <img src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=700&auto=format&fit=crop" alt="Sparepart Motor" loading="lazy" />
+        <div class="svc-image-overlay"></div>
+        <span class="svc-image-badge"><i class="fas fa-check-circle"></i> Original Parts</span>
+      </div>
     </div>
-    <div class="service-card reveal">
-      <div class="service-icon"><i class="fas fa-shopping-bag"></i></div>
-      <h3 class="service-title">Accessories</h3>
-      <p class="service-desc">Pilihan aksesori motor lengkap untuk mempercantik dan meningkatkan performa kendaraan Anda.</p>
+
+    <div class="svc-card reverse reveal">
+      <div class="svc-content">
+        <div class="svc-number">02</div>
+        <div class="svc-icon-row">
+          <div class="svc-icon"><i class="fas fa-shopping-bag"></i></div>
+          <h3 class="svc-title">Accessories</h3>
+        </div>
+        <p class="svc-desc">Lengkapi dan percantik motor Anda dengan pilihan aksesori terlengkap. Dari lampu LED, spion, cover jok, hingga aksesori pelindung — kami memiliki koleksi yang sesuai untuk berbagai selera dan anggaran.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Lampu LED</span><span class="svc-tag">Spion</span><span class="svc-tag">Cover Jok</span><span class="svc-tag">Pelindung Body</span>
+        </div>
+      </div>
+      <div class="svc-image">
+        <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=700&auto=format&fit=crop" alt="Accessories Motor" loading="lazy" />
+        <div class="svc-image-overlay"></div>
+        <span class="svc-image-badge"><i class="fas fa-star"></i> Pilihan Terlengkap</span>
+      </div>
     </div>
-    <div class="service-card reveal">
-      <div class="service-icon"><i class="fas fa-microchip"></i></div>
-      <h3 class="service-title">Diagnosa Injeksi</h3>
-      <p class="service-desc">Pemeriksaan sistem injeksi menggunakan alat diagnostik modern untuk mendeteksi kerusakan secara akurat.</p>
+
+    <div class="svc-card reveal">
+      <div class="svc-content">
+        <div class="svc-number">03</div>
+        <div class="svc-icon-row">
+          <div class="svc-icon"><i class="fas fa-microchip"></i></div>
+          <h3 class="svc-title">Diagnosa Injeksi</h3>
+        </div>
+        <p class="svc-desc">Menggunakan alat scan diagnostik terkini untuk membaca kode error pada sistem injeksi motor secara akurat. Teknisi kami terlatih menangani berbagai sistem EFI dari semua merk, memastikan performa mesin kembali optimal.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Scan ECU</span><span class="svc-tag">Reset Error Code</span><span class="svc-tag">Tuning Injeksi</span><span class="svc-tag">Semua Merk</span>
+        </div>
+      </div>
+      <div class="svc-image">
+        <img src="https://images.unsplash.com/photo-1636761559007-09b5aab36fe0?w=700&auto=format&fit=crop" alt="Diagnosa Injeksi" loading="lazy" />
+        <div class="svc-image-overlay"></div>
+        <span class="svc-image-badge"><i class="fas fa-microchip"></i> Alat Modern</span>
+      </div>
     </div>
-    <div class="service-card reveal">
-      <div class="service-icon"><i class="fas fa-key"></i></div>
-      <h3 class="service-title">Baca ID & Remote Hilang</h3>
-      <p class="service-desc">Layanan pembacaan ECU dan penggantian remote kunci yang hilang dengan teknologi terkini.</p>
+
+    <div class="svc-card reverse reveal">
+      <div class="svc-content">
+        <div class="svc-number">04</div>
+        <div class="svc-icon-row">
+          <div class="svc-icon"><i class="fas fa-key"></i></div>
+          <h3 class="svc-title">Baca ID & Remote Hilang</h3>
+        </div>
+        <p class="svc-desc">Layanan programming ID kunci dan penggantian remote yang hilang menggunakan teknologi terkini. Kami dapat memprogram ulang ECU dan membuat kunci baru tanpa perlu ke dealer — lebih cepat dan hemat biaya.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Duplikat Kunci</span><span class="svc-tag">Program Remote</span><span class="svc-tag">ECU Reprogram</span><span class="svc-tag">Immobilizer</span>
+        </div>
+      </div>
+      <div class="svc-image">
+        <img src="https://images.unsplash.com/photo-1600661653561-629509216228?w=700&auto=format&fit=crop" alt="Remote Kunci Motor" loading="lazy" />
+        <div class="svc-image-overlay"></div>
+        <span class="svc-image-badge"><i class="fas fa-shield-alt"></i> Anti Ribet</span>
+      </div>
     </div>
-    <div class="service-card reveal">
-      <div class="service-icon"><i class="fas fa-oil-can"></i></div>
-      <h3 class="service-title">Ganti Oli</h3>
-      <p class="service-desc">Penggantian oli mesin berkualitas dengan berbagai pilihan viskositas sesuai spesifikasi motor Anda.</p>
+
+    <div class="svc-card reveal">
+      <div class="svc-content">
+        <div class="svc-number">05</div>
+        <div class="svc-icon-row">
+          <div class="svc-icon"><i class="fas fa-oil-can"></i></div>
+          <h3 class="svc-title">Ganti Oli</h3>
+        </div>
+        <p class="svc-desc">Penggantian oli mesin berkualitas tinggi dengan berbagai pilihan merek dan viskositas sesuai spesifikasi motor Anda. Proses cepat 15–20 menit, teknisi kami juga melakukan pengecekan kondisi mesin secara gratis sekaligus.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Oli Mesin</span><span class="svc-tag">Oli Gardan</span><span class="svc-tag">Filter Oli</span><span class="svc-tag">Cek Gratis</span>
+        </div>
+      </div>
+      <div class="svc-image">
+        <img src="https://images.unsplash.com/photo-1616788494707-ec28f08d05a1?w=700&auto=format&fit=crop" alt="Ganti Oli Motor" loading="lazy" />
+        <div class="svc-image-overlay"></div>
+        <span class="svc-image-badge"><i class="fas fa-clock"></i> Proses 15 Menit</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ ULASAN ═══ -->
+<section id="ulasan">
+  <div class="ulasan-header reveal">
+    <div class="section-label">Apa Kata Mereka</div>
+    <h2 class="section-title">Ulasan <span>Pelanggan</span> Kami</h2>
+    <p class="section-desc" style="margin:0 auto;text-align:center">Kepercayaan dan kepuasan pelanggan adalah kebanggaan terbesar kami.</p>
+  </div>
+  <div class="marquee-wrapper">
+    <div class="marquee-track" id="marqueeTrack">
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#1554c4,#1e6fff)">AR</div>
+          <div><div class="review-name">Andi Rizky</div><div class="review-date">2 minggu lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Servis di sini sangat memuaskan! Teknisinya ramah dan cepat. Motor Beat saya yang sebelumnya susah distarter sekarang sudah normal kembali. Harga juga sangat terjangkau.</p>
+        <span class="review-service-tag">Diagnosa Injeksi</span>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#0d6e3f,#1a9a5c)">SN</div>
+          <div><div class="review-name">Siti Nuraini</div><div class="review-date">1 bulan lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Ganti oli di sini cepat banget, tidak sampai 20 menit sudah selesai. Stafnya juga mau menjelaskan kondisi motor saya secara detail. Pasti balik lagi!</p>
+        <span class="review-service-tag">Ganti Oli</span>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#7b2020,#c0392b)">BH</div>
+          <div><div class="review-name">Budi Hartono</div><div class="review-date">3 minggu lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star half"></i></div>
+        <p class="review-text">Remote motor Vario saya hilang dan panik banget. Alhamdulillah Logam Service bisa bantu programkan ulang. Prosesnya mudah dan tidak perlu ke dealer jauh-jauh.</p>
+        <span class="review-service-tag">Baca ID & Remote Hilang</span>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#7b4000,#c0762b)">DS</div>
+          <div><div class="review-name">Dewi Sartika</div><div class="review-date">2 bulan lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Beli sparepart di sini lengkap dan harganya bersaing. Saya butuh kampas rem untuk Mio dan langsung ada stoknya. Kualitas original, mantap deh!</p>
+        <span class="review-service-tag">Sparepart</span>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#1a1a6e,#2e2eb8)">FP</div>
+          <div><div class="review-name">Fajar Pratama</div><div class="review-date">1 minggu lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Pasang aksesori lampu LED di sini hasilnya rapi sekali. Teknisinya teliti dan tidak asal-asalan. Motor Ninja saya sekarang makin keren! Sangat rekomendasikan.</p>
+        <span class="review-service-tag">Accessories</span>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#1a6e3c,#27ae60)">RW</div>
+          <div><div class="review-name">Rina Wahyuni</div><div class="review-date">5 hari lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Motor saya tiba-tiba mati di jalan dan dibawa ke sini. Teknisi langsung scan dan ketemu masalahnya. Dalam 1 jam langsung bisa dipakai lagi. Terima kasih!</p>
+        <span class="review-service-tag">Diagnosa Injeksi</span>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#4a1a6e,#8e44ad)">HA</div>
+          <div><div class="review-name">Hendra Ardianto</div><div class="review-date">3 bulan lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star half"></i></div>
+        <p class="review-text">Sudah 3 tahun jadi pelanggan setia Logam Service. Selalu puas dengan hasilnya. Harga transparan, tidak ada biaya tersembunyi. Teknisinya jujur dan profesional.</p>
+        <span class="review-service-tag">Ganti Oli</span>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#6e1a1a,#c0392b)">NM</div>
+          <div><div class="review-name">Nurul Mayang</div><div class="review-date">2 minggu lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Sparepart lengkap dan asli. Saya cari rantai khusus untuk motor tua saya dan ternyata ada! Pemiliknya ramah dan mau memberi saran sparepart yang sesuai.</p>
+        <span class="review-service-tag">Sparepart</span>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#1a4a6e,#2980b9)">YS</div>
+          <div><div class="review-name">Yoga Saputra</div><div class="review-date">1 bulan lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Pasang cover jok dan spion baru di sini. Pengerjaannya rapi dan cepat. Harganya juga wajar banget. Tempat parkir luas dan nyaman untuk menunggu.</p>
+        <span class="review-service-tag">Accessories</span>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#2d6e1a,#27ae60)">LP</div>
+          <div><div class="review-name">Lestari Puspita</div><div class="review-date">4 hari lalu</div></div>
+        </div>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="review-text">Baru pertama kali ke Logam Service dan langsung terkesan. Bersih, tertata, teknisinya profesional. Ganti oli plus cek kondisi mesin gratis. Pasti jadi pelanggan tetap!</p>
+        <span class="review-service-tag">Ganti Oli</span>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- LOKASI -->
+<!-- ═══ LOKASI ═══ -->
 <section id="lokasi">
   <div class="lokasi-inner">
     <div class="lokasi-info reveal">
       <div class="section-label">Kunjungi Kami</div>
       <h2 class="section-title">Temukan <span>Lokasi</span> Kami</h2>
       <p class="section-desc">Kami berlokasi di pusat Sidikalang, mudah dijangkau dari berbagai penjuru kota.</p>
+
       <div class="info-row">
         <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
         <div class="info-text">
@@ -719,48 +572,62 @@
           <span>Senin – Sabtu: 08.00 – 17.00 WIB</span>
         </div>
       </div>
-      <a href="https://maps.app.goo.gl/xYF9aq6yqyqP7YNZA" target="_blank" class="btn-maps">
-        <i class="fas fa-directions"></i> Buka di Google Maps
-      </a>
+
+      <div class="maps-btns">
+        <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Sulang-Silima+No.01+Sidikalang+Kabupaten+Dairi+Sumatera+Utara" target="_blank" class="btn-maps">
+          <i class="fas fa-directions"></i> Buka di Google Maps
+        </a>
+        <a href="https://waze.com/ul?q=Jl.+Sulang-Silima+No.01+Sidikalang&navigate=yes" target="_blank" class="btn-maps-alt">
+          <i class="fas fa-road"></i> Waze
+        </a>
+      </div>
     </div>
+
     <div class="map-container reveal">
       <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.0!2d98.38!3d2.77!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMsKwNDYnMTIuMCJOIDk4wrAyMicwOC4wIkU!5e0!3m2!1sid!2sid!4v1"
-        allowfullscreen
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
+        src="https://maps.google.com/maps?q=Jl.+Sulang-Silima+No.01+Sidikalang+Kabupaten+Dairi&output=embed&z=16"
+        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
         title="Lokasi Logam Service Sidikalang"
       ></iframe>
+      <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Sulang-Silima+No.01+Sidikalang+Kabupaten+Dairi+Sumatera+Utara"
+         target="_blank" class="map-tap-overlay" aria-label="Buka di Google Maps">
+        <div class="map-open-btn">
+          <i class="fas fa-external-link-alt"></i> Ketuk untuk membuka Maps
+        </div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- KONTAK -->
+<!-- ═══ KONTAK ═══ -->
 <section id="kontak">
   <div class="kontak-box reveal">
     <div class="section-label">Hubungi Kami</div>
     <h2 class="section-title">Siap <span>Membantu</span> Anda</h2>
-    <p class="section-desc" style="margin:0 auto 8px;">Punya pertanyaan atau ingin booking servis? Hubungi kami langsung via WhatsApp, kami siap merespons dengan cepat.</p>
+    <p class="section-desc" style="margin:0 auto 8px">Punya pertanyaan atau ingin booking servis? Hubungi kami langsung via WhatsApp, kami siap merespons dengan cepat.</p>
     <div class="kontak-phone">0852-7047-3551</div>
     <p class="kontak-note">Jam Operasional: Senin – Sabtu, 08.00 – 17.00 WIB</p>
     <a href="https://wa.me/6285270473551" class="btn-wa-big" target="_blank">
-      <i class="fab fa-whatsapp"></i>
-      Chat WhatsApp Sekarang
+      <i class="fab fa-whatsapp"></i> Chat WhatsApp Sekarang
     </a>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="footer-inner">
     <div>
-      <div class="footer-brand">LOGAM<span>&nbsp;SERVICE</span></div>
+      <div class="footer-brand">
+        <div class="footer-brand-icon"><i class="fas fa-tools"></i></div>
+        LOGAM<span>&nbsp;SERVICE</span>
+      </div>
       <p class="footer-tagline">Bengkel sepeda motor profesional di Sidikalang. Melayani dengan sepenuh hati menggunakan teknisi berpengalaman dan peralatan modern.</p>
     </div>
     <div class="footer-col">
-      <h4>Informasi</h4>
+      <h4>Navigasi</h4>
       <a href="#tentang">Tentang Kami</a>
       <a href="#layanan">Layanan</a>
+      <a href="#ulasan">Ulasan</a>
       <a href="#lokasi">Lokasi</a>
       <a href="#kontak">Kontak</a>
     </div>
@@ -779,37 +646,35 @@
 </footer>
 
 <script>
-  // LOADER
   window.addEventListener('load', () => {
-    setTimeout(() => {
-      document.getElementById('loader').classList.add('hidden');
-    }, 1500);
+    setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1500);
   });
 
-  // HAMBURGER
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
   hamburger.addEventListener('click', () => {
     mobileMenu.classList.toggle('open');
-    hamburger.querySelector('i').className =
-      mobileMenu.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+    hamburger.querySelector('i').className = mobileMenu.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
   });
   function closeMobile() {
     mobileMenu.classList.remove('open');
     hamburger.querySelector('i').className = 'fas fa-bars';
   }
 
-  // SCROLL REVEAL
   const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
+  const obs = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-        observer.unobserve(e.target);
+        setTimeout(() => e.target.classList.add('visible'), i * 90);
+        obs.unobserve(e.target);
       }
     });
-  }, { threshold: 0.12 });
-  reveals.forEach(el => observer.observe(el));
+  }, { threshold: 0.1 });
+  reveals.forEach(el => obs.observe(el));
+
+  // Duplicate marquee cards for seamless infinite loop
+  const track = document.getElementById('marqueeTrack');
+  track.innerHTML += track.innerHTML;
 </script>
 </body>
 </html>
