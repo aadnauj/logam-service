@@ -13,7 +13,17 @@
 <body>
 
 <div id="loader">
-  <div class="loader-logo">LOGAM<span>&nbsp;SERVICE</span></div>
+  <div class="loader-icon-wrap">
+    <div class="loader-ring"></div>
+    <div class="loader-ring-spin"></div>
+    <i class="fas fa-wrench loader-wrench"></i>
+  </div>
+  <div class="loader-brand">
+    <div class="loader-brand-text">
+      <span class="w1">LOGAM</span>
+      <span class="w2">SERVICE</span>
+    </div>
+  </div>
   <div class="loader-bar"><div class="loader-fill"></div></div>
 </div>
 
@@ -23,8 +33,11 @@
 
 <nav>
   <a href="#" class="nav-brand">
-    <div class="nav-brand-icon"><i class="fas fa-tools"></i></div>
-    LOGAM<span>&nbsp;SERVICE</span>
+    <div class="nav-brand-words">
+      <span style="color:var(--white)">LOGAM</span>
+      <span>SERVICE</span>
+    </div>
+    <div class="nav-brand-underline"></div>
   </a>
   <ul class="nav-links">
     <li><a href="#tentang">Tentang</a></li>
@@ -80,16 +93,47 @@
 <section id="tentang">
   <div class="tentang-inner">
     <div class="tentang-visual reveal">
-      <div class="tentang-hexgrid">
-        <div class="hex-cell"><i class="fas fa-wrench"></i><span>Servis</span></div>
-        <div class="hex-cell accent-cell"><i class="fas fa-star"></i><span>Terbaik</span></div>
-        <div class="hex-cell"><i class="fas fa-cog"></i><span>Sparepart</span></div>
-        <div class="hex-cell"><i class="fas fa-bolt"></i><span>Cepat</span></div>
-        <div class="hex-cell"><i class="fas fa-shield-alt"></i><span>Terjamin</span></div>
-        <div class="hex-cell"><i class="fas fa-tools"></i><span>Modern</span></div>
-        <div class="hex-cell"><i class="fas fa-user-cog"></i><span>Teknisi</span></div>
-        <div class="hex-cell accent-cell"><i class="fas fa-check-circle"></i><span>Garansi</span></div>
-        <div class="hex-cell"><i class="fas fa-heart"></i><span>Pelanggan</span></div>
+      <div class="icon-tile-grid">
+
+        <div class="icon-tile icon-tile-default">
+          <i class="fas fa-wrench tile-icon"></i>
+          <span class="tile-label">Servis</span>
+        </div>
+        <div class="icon-tile icon-tile-blue">
+          <i class="fas fa-star tile-icon"></i>
+          <span class="tile-label">Terbaik</span>
+        </div>
+        <div class="icon-tile icon-tile-default">
+          <i class="fas fa-cog tile-icon"></i>
+          <span class="tile-label">Sparepart</span>
+        </div>
+
+        <div class="icon-tile icon-tile-default">
+          <i class="fas fa-bolt tile-icon"></i>
+          <span class="tile-label">Cepat</span>
+        </div>
+        <div class="icon-tile icon-tile-default">
+          <i class="fas fa-shield-alt tile-icon"></i>
+          <span class="tile-label">Terjamin</span>
+        </div>
+        <div class="icon-tile icon-tile-default">
+          <i class="fas fa-tools tile-icon"></i>
+          <span class="tile-label">Modern</span>
+        </div>
+
+        <div class="icon-tile icon-tile-default">
+          <i class="fas fa-user-cog tile-icon"></i>
+          <span class="tile-label">Teknisi</span>
+        </div>
+        <div class="icon-tile icon-tile-gold">
+          <i class="fas fa-check-circle tile-icon"></i>
+          <span class="tile-label">Garansi</span>
+        </div>
+        <div class="icon-tile icon-tile-default">
+          <i class="fas fa-heart tile-icon"></i>
+          <span class="tile-label">Pelanggan</span>
+        </div>
+
       </div>
     </div>
     <div class="tentang-text reveal">
@@ -403,8 +447,11 @@
   <div class="footer-inner">
     <div>
       <div class="footer-brand">
-        <div class="footer-brand-icon"><i class="fas fa-tools"></i></div>
-        LOGAM<span>&nbsp;SERVICE</span>
+        <div class="footer-brand-words">
+          <span style="color:var(--white)">LOGAM</span>
+          <span>SERVICE</span>
+        </div>
+        <div class="footer-brand-line"></div>
       </div>
       <p class="footer-tagline">Bengkel sepeda motor profesional di Sidikalang. Melayani dengan sepenuh hati menggunakan teknisi berpengalaman dan peralatan modern.</p>
     </div>
